@@ -1,0 +1,23 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  background: #f9fafc;
+  color: #333;
+  font-family: "IBM Plex Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  margin: 0;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: rgb(var(--primary-color));
+}
+
+button {
+  font-family: inherit;
+  outline: 0;
+}

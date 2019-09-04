@@ -1,0 +1,56 @@
+.field {
+  margin-bottom: 15px;
+}
+
+.label {
+  color: #222;
+  font-size: 14px;
+  margin-bottom: 7px;
+}
+
+.range-input {
+  height: 20px;
+  position: relative;
+}
+
+.range-background {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+  height: 4px;
+  margin: 8px 0;
+  position: absolute;
+  width: 100%
+}
+
+.range-fill {
+  background: rgb(var(--scondary-color));
+  border-radius: 2px;
+  height: 4px;
+  margin: 8px 0;
+  position: absolute;
+  width: 50%;
+}
+
+.range-button {
+  background: #fff;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+  height: 20px;
+  margin-left: -10px;
+  position: absolute;
+  width: 20px;
+}
+
+.select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: #fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='8'><path fill='none' stroke='%23888' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M1 1l6 6 6-6' /></svg>") calc(100% - 10px) 50% no-repeat;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+  padding: 10px 34px 10px 10px;
+  width: 100%;
+}

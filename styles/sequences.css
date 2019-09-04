@@ -1,0 +1,52 @@
+.sequence-wrapper {
+  position: relative;
+}
+
+.sequence {
+  background: #fff;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 3px;
+  border-radius: 20px;
+  height: 70px;
+  margin-bottom: 20px;
+  transition: all 0.3s
+}
+
+.sequence-delete {
+  background: #fff;
+  border: 0;
+  border-radius: 12px;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
+  color: rgb(var(--tetriary-color));
+  cursor: pointer;
+  height: 24px;
+  opacity: 0;
+  padding: 0;
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  transition: all 0.3s;
+  visibility: hidden;
+  width: 24px;
+}
+
+.sequence-selected {
+  border-color: rgb(var(--primary-color));
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.sequence-left-resize {
+  border-left-width: 8px;
+  cursor: ew-resize;
+}
+
+.sequence-right-resize {
+  border-right-width: 8px;
+  cursor: ew-resize;
+}
+
+.sequence-wrapper:hover .sequence-delete {
+  opacity: 1;
+  visibility: visible;
+}

@@ -1,0 +1,38 @@
+.wordmark {
+  letter-spacing: -1px;
+  font-size: 26px;
+  margin: 0;
+}
+
+.wordmark span {
+  font-weight: 300;
+}
+
+.wordmark sup {
+  font-size: 0.55em;
+  font-weight: 400;
+  letter-spacing: 0;
+  position: relative;
+  top: -2px;
+}
+
+.header {
+  align-items: center;
+  background: #fff;
+  border-bottom: 1px solid #ccced1;
+  display: flex;
+  padding: 20px;
+}
+
+.header > * {
+  flex: auto;
+  width: 33.33%;
+}
+
+.actions-primary {
+  text-align: center;
+}
+
+.actions-secondary {
+  text-align: right;
+}
