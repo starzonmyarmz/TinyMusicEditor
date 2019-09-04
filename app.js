@@ -6,11 +6,12 @@ import TinyMusic from 'tinymusic'
 const { Fragment, useState } = React
 
 export default ({ onChangeVolume }) => {
+  const [tempo, setTempo] = useState(120)
   const [volume, setVolume] = useState(0.2)
 
   const onKeypress = (note, octave) => {
     const context = new AudioContext()
-    const sequence = new TinyMusic.Sequence(context, 120)
+    const sequence = new TinyMusic.Sequence(context, tempo)
     sequence.push(new TinyMusic.Note(`${note}${octave} q`))
     sequence.loop = false
     sequence.gain.gain.value = volume
@@ -106,7 +107,7 @@ export default ({ onChangeVolume }) => {
       </div>
     </div>
 
-    <Context volume={volume} setVolume={setVolume} />
+    <Context setVolume={setVolume} setTempo={setTempo} tempo={tempo} volume={volume} />
     <Piano onKeypress={onKeypress} />
   </Fragment>
 }
