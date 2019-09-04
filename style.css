@@ -53,25 +53,25 @@
 
 
 .button-record {
-  stroke: rgb(var(--tetriary-color));
+  stroke: rgb(var(--tertiary-color));
 }
 
 .button-record:hover {
-  background: rgba(var(--tetriary-color), 0.1);
+  background: rgba(var(--tertiary-color), 0.1);
 }
 
 .button-record:active {
-  fill: rgb(var(--tetriary-color));
+  fill: rgb(var(--tertiary-color));
 }
 
 .button-recording {
-  background: rgba(var(--tetriary-color), 0.1);
-  fill: rgb(var(--tetriary-color));
+  background: rgba(var(--tertiary-color), 0.1);
+  fill: rgb(var(--tertiary-color));
 }
 
 .button-recording:hover {
-  background: rgba(var(--tetriary-color), 0.2);
-  fill: rgb(var(--tetriary-color));
+  background: rgba(var(--tertiary-color), 0.2);
+  fill: rgb(var(--tertiary-color));
 }
 
 
