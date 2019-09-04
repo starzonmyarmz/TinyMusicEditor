@@ -1,12 +1,14 @@
 import React from 'react'
 import Context from './context.js'
 import Piano from './piano.js'
+import Timeline from './timeline.js'
 import TinyMusic from 'tinymusic'
 
 const { Fragment, useState } = React
 
 export default ({ onChangeVolume }) => {
   const [tempo, setTempo] = useState(120)
+  const [timeSignature, setTimeSignature] = useState('3')
   const [volume, setVolume] = useState(0.2)
 
   const onKeypress = (note, octave) => {
@@ -78,24 +80,7 @@ export default ({ onChangeVolume }) => {
     </div>
 
     <div className="main">
-      <div className="timeline">
-        <svg width="100%" height="8">
-          <pattern id="timeline-four" x="0" y="0" width="240" height="8" patternUnits="userSpaceOnUse">
-            <circle cx="4" cy="4" r="4"/>
-            <circle cx="64" cy="4" r="2"/>
-            <circle cx="124" cy="4" r="2"/>
-            <circle cx="184" cy="4" r="2"/>
-          </pattern>
-
-          <pattern id="timeline-three" x="0" y="0" width="184" height="8" patternUnits="userSpaceOnUse">
-            <circle cx="4" cy="4" r="4"/>
-            <circle cx="64" cy="4" r="2"/>
-            <circle cx="124" cy="4" r="2"/>
-          </pattern>
-
-          <rect x="0" y="0" width="100%" height="100%" fill="url(#timeline-three)" />
-        </svg>
-      </div>
+      <Timeline timeSignature={timeSignature} />
 
       <div className="sequences">
         <div className="sequence-wrapper">
@@ -107,7 +92,7 @@ export default ({ onChangeVolume }) => {
       </div>
     </div>
 
-    <Context setVolume={setVolume} setTempo={setTempo} tempo={tempo} volume={volume} />
+    <Context setTimeSignature={setTimeSignature} setVolume={setVolume} setTempo={setTempo} tempo={tempo} volume={volume} />
     <Piano onKeypress={onKeypress} />
   </Fragment>
 }
