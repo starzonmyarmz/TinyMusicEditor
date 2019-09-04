@@ -1,3 +1,7 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Piano from './piano.js'
+
 document.getElementById('show').addEventListener('click', () => {
   document.querySelector('.wrapper').classList.add('context-open')
 })
@@ -18,3 +22,5 @@ document.querySelector('.button-record').addEventListener('click', (event) => {
 document.querySelector('.button-loop').addEventListener('click', (event) => {
   event.currentTarget.classList.toggle('button-looping')
 })
+
+ReactDOM.render(<Piano />, document.getElementById('piano'))
