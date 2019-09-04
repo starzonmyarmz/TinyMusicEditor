@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default ({ timeSignature }) => {
-  if (timeSignature === '3') {
+  if (timeSignature === '3/4') {
     return (
       <div className="timeline">
         <svg width="100%" height="8">
@@ -17,7 +17,7 @@ export default ({ timeSignature }) => {
     )
   }
 
-  if (timeSignature === '4') {
+  if (timeSignature === '4/4') {
     return (
       <div className="timeline">
         <svg width="100%" height="8">

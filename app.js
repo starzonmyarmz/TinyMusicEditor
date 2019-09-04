@@ -4,12 +4,41 @@ import Piano from './piano.js'
 import Timeline from './timeline.js'
 import TinyMusic from 'tinymusic'
 
-const { Fragment, useState } = React
+const { Fragment, useEffect, useMemo, useState } = React
 
 export default ({ onChangeVolume }) => {
+  const [recording, setRecording] = useState(false)
   const [tempo, setTempo] = useState(120)
-  const [timeSignature, setTimeSignature] = useState('3')
+  const [timeSignature, setTimeSignature] = useState('3/4')
   const [volume, setVolume] = useState(0.2)
+
+  const metronome = useMemo(() => {
+    const metronome = new TinyMusic.Sequence(new AudioContext(), tempo)
+    metronome.staccato = 0.5
+    return metronome
+  }, [])
+
+  useEffect(() => {
+    const notes = timeSignature === '3/4' ? ['C5 q', 'C4 q', 'C4 q'] : ['C5 q', 'C4 q', 'C4 q', 'C4 q']
+    metronome.notes = notes.map(note => new TinyMusic.Note(note))
+  }, [timeSignature])
+
+  useEffect(() => {
+    metronome.tempo = tempo
+  }, [tempo])
+
+  useEffect(() => {
+    metronome.gain.gain.value = volume
+  }, [volume])
+
+  const toggleRecord = () => {
+    setRecording(!recording)
+    if (recording) {
+      metronome.stop()
+    } else {
+      metronome.play()
+    }
+  }
 
   const onKeypress = (note, octave) => {
     const context = new AudioContext()
@@ -41,7 +70,7 @@ export default ({ onChangeVolume }) => {
           </svg>
         </button>
 
-        <button type="button" className="button button-record">
+        <button type="button" className={recording ? 'button button-recording' : 'button button-record'} onClick={toggleRecord}>
           <svg width="48" height="48">
             <circle className="icon-record" cx="24" cy="24" r="8" fill-rule="evenodd" stroke-width="2"/>
           </svg>
