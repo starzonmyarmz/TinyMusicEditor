@@ -29,6 +29,7 @@ const play = (note, octave) => {
   const sequence = new TinyMusic.Sequence(context, 120)
   sequence.push(new TinyMusic.Note(`${note}${octave} q`))
   sequence.loop = false
+  sequence.gain.gain.value = 0.20
   sequence.play()
 }
 
