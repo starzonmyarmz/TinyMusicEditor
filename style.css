@@ -13,13 +13,30 @@ body {
   margin: 0;
 }
 
-
+h1 {
+  margin: 0
+}
 
 .header {
+  align-items: center;
   background: #fff;
   border-bottom: 1px solid #CCCED1;
+  display: flex;
   grid-area: header;
   padding: 20px;
+}
+
+.header > * {
+  flex: auto;
+  width: 33.33%;
+}
+
+.actions-primary {
+  text-align: center;
+}
+
+.actions-secondary {
+  text-align: right;
 }
 
 .main {
@@ -178,7 +195,7 @@ body {
   border-radius: 12px;
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
   color: #C84744;
-  cursor: pointer;  
+  cursor: pointer;
   height: 24px;
   opacity: 0;
   padding: 0;
