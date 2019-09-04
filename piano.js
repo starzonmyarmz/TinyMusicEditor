@@ -33,9 +33,11 @@ export default ({ onKeypress }) => {
   })
 
   return (
-    <div className="scroll">
-      <div className="keys">
-        {keys}
+    <div className="piano">
+      <div className="scroll">
+        <div className="keys">
+          {keys}
+        </div>
       </div>
     </div>
   )
