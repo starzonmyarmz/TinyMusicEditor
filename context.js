@@ -14,21 +14,21 @@ export default ({ setTempo, setTimeSignature, setVolume, tempo, volume }) => {
   }
 
   return (
-    <div class="context">
-      <div class="field">
-        <div class="label">
+    <div className="context">
+      <div className="field">
+        <div className="label">
           Slider Component
         </div>
         <input type="range" min="0" max="1" step="0.05" value={volume} onChange={changeVolume} />
       </div>
-      <div class="field">
-        <div class="label">
+      <div className="field">
+        <div className="label">
           Tempo
         </div>
         <input type="number" min="40" max="200" step="1" value={tempo} onChange={changeTempo} />
       </div>
-      <div class="field">
-        <div class="label">
+      <div className="field">
+        <div className="label">
           Time Signature
         </div>
         <select onChange={changeTimeSignature}>
