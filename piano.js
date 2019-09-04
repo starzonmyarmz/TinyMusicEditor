@@ -1,23 +1,22 @@
 import React from 'react'
-import TinyMusic from 'tinymusic'
 import classname from 'classname'
 
-export default () => {
-  const notes = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
+export default ({ onKeypress }) => {
+  const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', ]
 
   const offsets = {
-    'A': 0,
-    'A#': 2,
-    'B': 3,
-    'C': 6,
-    'C#': 8,
-    'D': 9,
-    'D#': 11,
-    'E': 12,
-    'F': 15,
-    'F#': 17,
-    'G': 18,
-    'G#': 20
+    'C': 0,
+    'C#': 2,
+    'D': 3,
+    'D#': 5,
+    'E': 6,
+    'F': 9,
+    'F#': 11,
+    'G': 12,
+    'G#': 14,
+    'A': 15,
+    'A#': 17,
+    'B': 18,
   }
 
   const keys = new Array(88).fill().map((_, index) => {
@@ -30,15 +29,7 @@ export default () => {
       'key-white': note.length === 1
     })
 
-    const onClick = () => {
-      const context = new AudioContext()
-      const sequence = new TinyMusic.Sequence(context, 120)
-      sequence.push(new TinyMusic.Note(`${note}${octave} q`))
-      sequence.loop = false
-      sequence.play()
-    }
-
-    return <button key={index} type="button" className={className} style={{ gridColumnStart }} onClick={onClick}></button>
+    return <button key={index} type="button" className={className} style={{ gridColumnStart }} onClick={() => onKeypress(note, octave)}></button>
   })
 
   return (
