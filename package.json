@@ -1,0 +1,27 @@
+{
+  "name": "TinyMusicEditor",
+  "version": "1.0.0",
+  "description": "TinyMusic Editor",
+  "main": "script.js",
+  "dependencies": {
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3"
+  },
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/starzonmyarmz/TinyMusicEditor.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/starzonmyarmz/TinyMusicEditor/issues"
+  },
+  "homepage": "https://github.com/starzonmyarmz/TinyMusicEditor#readme"
+}
