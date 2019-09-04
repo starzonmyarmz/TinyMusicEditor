@@ -19,7 +19,7 @@ export default ({ onKeypress }) => {
     'B': 18,
   }
 
-  const keys = new Array(88).fill().map((_, index) => {
+  const keys = new Array(85).fill().map((_, index) => {
     const octave = (index / notes.length) | 0
     const note = notes[index % notes.length]
     const gridColumnStart = octave * 21 + offsets[note] + 1
