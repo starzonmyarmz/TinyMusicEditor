@@ -1,4 +1,8 @@
 :root {
+  --primary-color: 137, 114, 246;
+  --scondary-color: 47, 204, 113;
+  --tetriary-color: 200, 71, 68;
+  --primary-gray: 136, 136, 136;
   --w-keys: 36;
   --key-width: 40px;
 }
@@ -8,7 +12,7 @@
 }
 
 body {
-  background: #F9FAFC;
+  background: #f9fafc;
   color: #333;
   font-family: "IBM Plex Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -19,7 +23,11 @@ body {
 }
 
 a {
-  color: #8972F6;
+  color: rgb(var(--primary-color));
+}
+
+button {
+  outline: 0;
 }
 
 h1 {
@@ -43,7 +51,7 @@ h1 sup {
 .header {
   align-items: center;
   background: #fff;
-  border-bottom: 1px solid #CCCED1;
+  border-bottom: 1px solid #ccced1;
   display: flex;
   grid-area: header;
   padding: 20px;
@@ -72,8 +80,8 @@ h1 sup {
 }
 
 .context {
-  background: #F3F5F9;
-  border-left: 1px solid #CCCED1;
+  background: #f3f5f9;
+  border-left: 1px solid #ccced1;
   display: none;
   grid-area: context;
   padding: 20px;
@@ -83,8 +91,7 @@ h1 sup {
 
 .wrapper {
   display: grid;
-  grid-template-areas:
-    "header" "main" "piano";
+  grid-template-areas: "header" "main" "piano";
   grid-template-columns: 100vw;
   grid-template-rows: -webkit-min-content auto 240px;
   grid-template-rows: min-content auto 240px;
@@ -93,14 +100,14 @@ h1 sup {
 }
 
 .context-open {
-  grid-template-areas:
-    "header header" "main context" "piano context";
+  grid-template-areas: "header header" "main context" "piano context";
   grid-template-columns: calc(100vw - 300px) 300px;
 }
 
 .context-open .context {
   display: block;
 }
+
 
 
 .button {
@@ -110,36 +117,32 @@ h1 sup {
   cursor: pointer;
   fill: transparent;
   height: 48px;
-  outline: 0;
   padding: 0;
-  stroke: #888;
+  stroke: rgb(var(--primary-gray));
   transition: background 0.3s;
   width: 48px;
 }
 
 .button:hover {
-  background: rgba(0, 0, 0, 0.07);
+  background: rgba(var(--primary-gray), 0.1);
 }
 
 .button:active {
-  fill: #888;
+  fill: rgb(var(--primary-gray));
 }
 
 
 
 .button-playing {
-  background: rgba(0, 0, 0, 0.07);
-  fill: #888;
+  background: rgba(var(--primary-gray), 0.1);
+  fill: rgb(var(--primary-gray));
 }
 
 .button-playing:hover {
-  background: rgba(0, 0, 0, 0.14);
+  background: rgba(var(--primary-gray), 0.2);
 }
 
-.button-playing .icon-play {
-  display: none;
-}
-
+.button-playing .icon-play,
 .button-stopped .icon-stop {
   display: none;
 }
@@ -147,25 +150,25 @@ h1 sup {
 
 
 .button-record {
-  stroke: #C84744;
+  stroke: rgb(var(--tetriary-color));
 }
 
 .button-record:hover {
-  background: #F9ECEC;
+  background: rgba(var(--tetriary-color), 0.1);
 }
 
 .button-record:active {
-  fill: #C84744;
+  fill: rgb(var(--tetriary-color));
 }
 
 .button-recording {
-  background: #F9ECEC;
-  fill: #C84744;
+  background: rgba(var(--tetriary-color), 0.1);
+  fill: rgb(var(--tetriary-color));
 }
 
 .button-recording:hover {
-  background: #F4DADA;
-  fill: #C84744;
+  background: rgba(var(--tetriary-color), 0.2);
+  fill: rgb(var(--tetriary-color));
 }
 
 
@@ -175,11 +178,11 @@ h1 sup {
 }
 
 .button-looping {
-  stroke: #2FCC71;
+  stroke: rgb(var(--scondary-color));
 }
 
 .button-looping:hover {
-  background: #D5F5E3;
+  background: rgba(var(--scondary-color), 0.15);
 }
 
 
@@ -205,11 +208,11 @@ h1 sup {
   background: #fff;
   border-color: transparent;
   border-style: solid;
-  border-width: 3px 8px;
+  border-width: 3px;
   border-radius: 20px;
   height: 70px;
   margin-bottom: 20px;
-  transition: box-shadow 0.2s
+  transition: all 0.3s
 }
 
 .sequence-delete {
@@ -217,7 +220,7 @@ h1 sup {
   border: 0;
   border-radius: 12px;
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
-  color: #C84744;
+  color: rgb(var(--tetriary-color));
   cursor: pointer;
   height: 24px;
   opacity: 0;
@@ -231,17 +234,17 @@ h1 sup {
 }
 
 .sequence-selected {
-  border-color: #8972F6;
+  border-color: rgb(var(--primary-color));
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 }
 
 .sequence-left-resize {
-  border-left-color: #1409DC;
+  border-left-width: 8px;
   cursor: ew-resize;
 }
 
 .sequence-right-resize {
-  border-right-color: #1409DC;
+  border-right-width: 8px;
   cursor: ew-resize;
 }
 
@@ -272,10 +275,10 @@ h1 sup {
 
 .keys {
   display: grid;
-  grid-template-columns: repeat(calc(var(--w-keys) * 3), 1fr);
+  grid-template-columns: repeat(calc(var(--white-keys) * 3), 1fr);
   grid-template-rows: repeat(3, 1fr);
   height: 100%;
-  width: calc(var(--key-width) * var(--w-keys));
+  width: calc(var(--key-width) * var(--white-keys));
 }
 
 .key {
@@ -300,10 +303,6 @@ h1 sup {
   grid-column: auto / span 2;
   grid-row: 1 / span 2;
   z-index: 2;
-}
-
-.key:active {
-
 }
 
 
@@ -333,7 +332,7 @@ h1 sup {
 }
 
 .range-fill {
-  background: #2FCC71;
+  background: rgb(var(--scondary-color));
   border-radius: 2px;
   height: 4px;
   margin: 8px 0;
