@@ -55,6 +55,8 @@ export default ({ bubble, update }) => {
           <input type="range" className="range" min="0" max="1" step="0.05" value={volume} onChange={changeVolume} />
         </div>
       </div>
+
+      <h4>Effects</h4>
       <div className="field-container">
         <div className="field">
           <div className="label">
@@ -97,7 +99,8 @@ export default ({ bubble, update }) => {
           <input type="range" className="range" min="0" max="1" step="0.05" value={smoothing} onChange={changeSmoothing} />
         </div>
       </div>
-      <h3>Equalizer</h3>
+
+      <h4>Equalizer</h4>
       <div className="field-container">
         <div className="field">
           <div className="label">
