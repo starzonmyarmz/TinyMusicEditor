@@ -26,7 +26,7 @@ export default ({ onChangeVolume }) => {
   const [recording, setRecording] = useState(false)
   const [tempo, setTempo] = useState(120)
   const [timeSignature, setTimeSignature] = useState('4/4')
-  const [metronomeSound, setMetronomeSound] = useState('accented')
+  const [metronomeSound, setMetronomeSound] = useState('chipAccented')
   const [volume, setVolume] = useState(0.2)
   const [bubbles, setBubbles] = useState([Bubble()])
   const [selectedBubble, setSelectedBubble] = useState(bubbles[0])
@@ -62,9 +62,29 @@ export default ({ onChangeVolume }) => {
   }
 
   useEffect(() => {
-    const sound = metronomeSound === 'accented' ? accentedMetronome : unaccentedMetronome
-    const notes = sound[timeSignature]
-    metronome.notes = notes.map(note => new TinyMusic.Note(note))
+    if (metronomeSound === 'none') return
+    let sound
+
+    if (metronomeSound === 'chipAccented' || metronomeSound === 'mutedAccented') {
+      sound = accentedMetronome
+    }
+
+    if (metronomeSound === 'chipUnaccented' || metronomeSound === 'mutedUnaccented') {
+      sound = unaccentedMetronome
+    }
+
+    if (metronomeSound === 'chipAccented' || metronomeSound === 'chipUnaccented') {
+      metronome.waveType = 'square'
+    }
+
+    if (metronomeSound === 'mutedAccented' || metronomeSound === 'mutedUnaccented') {
+      metronome.waveType = 'sine'
+    }
+
+    if (metronomeSound !== 'none') {
+      const notes = sound[timeSignature]
+      metronome.notes = notes.map(note => new TinyMusic.Note(note))
+    }
   }, [timeSignature, metronomeSound])
 
   useEffect(() => {
@@ -72,8 +92,12 @@ export default ({ onChangeVolume }) => {
   }, [tempo])
 
   useEffect(() => {
-    metronome.gain.gain.value = volume
-  }, [volume])
+    if (metronomeSound === 'none') {
+      metronome.gain.gain.value = 0
+    } else {
+      metronome.gain.gain.value = volume
+    }
+  }, [volume, metronomeSound])
 
   const toggleRecord = () => {
     setRecording(!recording)
