@@ -20,7 +20,8 @@ const Bubble = () => ({
   treble: 0,
   volume: 1,
   wave: 'sine',
-  notes: []
+  notes: [],
+  start: null
 })
 
 export default ({ onChangeVolume }) => {
@@ -80,16 +81,20 @@ export default ({ onChangeVolume }) => {
 
   const toggleRecord = () => {
     setRecording(!recording)
+
     if (recording) {
       metronome.stop()
     } else {
       metronome.play()
+      updateSelected({ notes: [], startTime: globalAc.currentTime })
     }
   }
 
   const onNote = (note) => {
     if (!recording) return
-    updateSelected({notes: selectedBubble.notes.concat([note])})
+    const notes = selectedBubble.notes.concat([note])
+    updateSelected({notes})
+    console.log(notes)
   }
 
   return <div className='wrapper context-open'>
