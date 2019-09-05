@@ -1,0 +1,81 @@
+.button {
+  background: #fff;
+  border: 0;
+  border-radius: 100%;
+  cursor: pointer;
+  fill: transparent;
+  height: 48px;
+  padding: 0;
+  stroke: rgb(var(--primary-gray));
+  transition: background 0.3s;
+  width: 48px;
+}
+
+.button:hover,
+.button-active {
+  background: rgba(var(--primary-gray), 0.1);
+}
+
+.button:active {
+  fill: rgb(var(--primary-gray));
+}
+
+
+
+.button-playing {
+  background: rgba(var(--primary-gray), 0.1);
+  fill: rgb(var(--primary-gray));
+}
+
+.button-playing:hover {
+  background: rgba(var(--primary-gray), 0.2);
+}
+
+.button-playing .icon-play,
+.button-stopped .icon-stop {
+  display: none;
+}
+
+
+
+.button-record {
+  stroke: rgb(var(--tertiary-color));
+}
+
+.button-record:hover {
+  background: rgba(var(--tertiary-color), 0.1);
+}
+
+.button-record:active {
+  fill: rgb(var(--tertiary-color));
+}
+
+.button-recording {
+  background: rgba(var(--tertiary-color), 0.1);
+  fill: rgb(var(--tertiary-color));
+}
+
+.button-recording:hover {
+  background: rgba(var(--tertiary-color), 0.2);
+  fill: rgb(var(--tertiary-color));
+}
+
+
+
+.button-loop:hover {
+  fill: transparent;
+}
+
+.button-looping {
+  stroke: rgb(var(--secondary-color));
+}
+
+.button-looping:hover {
+  background: rgba(var(--secondary-color), 0.15);
+}
+
+
+
+.button-save:active .icon-save-details {
+  stroke: #fff;
+}
