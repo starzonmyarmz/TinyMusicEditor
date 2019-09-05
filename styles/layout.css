@@ -37,3 +37,14 @@
 .context-open .context {
   display: block;
 }
+
+
+
+.scroll {
+  height: 100%;
+  overflow-x: scroll;
+}
+
+.scroll::-webkit-scrollbar {
+  display: none;
+}
