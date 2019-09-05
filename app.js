@@ -10,26 +10,43 @@ const { useEffect, useMemo, useState } = React
 
 let nextId = 1
 
-class Bubble {
-  constructor () {
-    this.id = nextId++
-  }
-}
+const Bubble = () => ({
+  bass: 0,
+  id: nextId++,
+  fade: 'none',
+  mid: 0,
+  smoothing: 0,
+  staccato: 0,
+  treble: 0,
+  volume: 1,
+  wave: 'sine',
+})
 
 export default ({ onChangeVolume }) => {
   const [recording, setRecording] = useState(false)
   const [tempo, setTempo] = useState(120)
   const [timeSignature, setTimeSignature] = useState('3/4')
   const [volume, setVolume] = useState(0.2)
-  const [bubbles, setBubbles] = useState([new Bubble()])
+  const [bubbles, setBubbles] = useState([Bubble()])
   const [selectedBubble, setSelectedBubble] = useState(bubbles[0])
 
   const addBubble = () => {
-    setBubbles(bubbles.concat([new Bubble()]))
+    setBubbles(bubbles.concat([Bubble()]))
   }
 
   const deleteBubble = (bubble) => {
     setBubbles(bubbles.filter(other => bubble !== other))
+  }
+
+  const updateSelected = (values) => {
+    setBubbles(bubbles.map(bubble => {
+      if (bubble === selectedBubble) {
+        const newBubble = Object.assign(bubble, values)
+        setSelectedBubble(newBubble)
+        return newBubble
+      }
+      return bubble
+    }))
   }
 
   const metronome = useMemo(() => {
@@ -133,7 +150,7 @@ export default ({ onChangeVolume }) => {
       <button type='button' onClick={addBubble}>+</button>
     </div>
 
-    <Context />
+    <Context bubble={selectedBubble} update={updateSelected} />
     <Piano onKeypress={onKeypress} />
   </div>
 }

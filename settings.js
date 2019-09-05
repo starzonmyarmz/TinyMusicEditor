@@ -50,7 +50,7 @@ export default ({ setTempo, setTimeSignature, setVolume, tempo, volume }) => {
         <div className="field-container">
           <div className="field">
             <div className="label">
-              Slider Component
+              Volume
             </div>
             <input type="range" min="0" max="1" step="0.05" value={volume} onChange={changeVolume} />
           </div>
