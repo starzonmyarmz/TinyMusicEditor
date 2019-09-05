@@ -21,7 +21,7 @@ const Bubble = () => ({
   volume: 1,
   wave: 'sine',
   notes: [],
-  start: null
+  startTime: null
 })
 
 export default ({ onChangeVolume }) => {
@@ -85,7 +85,7 @@ export default ({ onChangeVolume }) => {
     if (recording) {
       metronome.stop()
     } else {
-      metronome.play()
+      metronome.play(globalAc.currentTime)
       updateSelected({ notes: [], startTime: globalAc.currentTime })
     }
   }
@@ -150,7 +150,12 @@ export default ({ onChangeVolume }) => {
 
       <div className="bubbles">
         {bubbles.map((bubble) => {
-          return <BubbleView key={bubble.id} selected={bubble === selectedBubble} onSelect={() => { setSelectedBubble(bubble) }} onDelete={() => { deleteBubble(bubble) }} />
+          return (
+            <BubbleView key={bubble.id} ac={globalAc}
+              tempo={tempo} timeSignature={timeSignature}
+              selected={bubble === selectedBubble} bubble={bubble}
+              onSelect={() => { setSelectedBubble(bubble) }} onDelete={() => { deleteBubble(bubble) }} />
+          )
         })}
       </div>
 
