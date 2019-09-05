@@ -97,6 +97,24 @@ export default ({ onChangeVolume }) => {
     console.log(notes)
   }
 
+  const play = () => {
+    for (const bubble of bubbles) {
+      const lastTime = bubble.startTime
+      const notes = []
+
+      for (const note of bubble.notes) {
+        notes.push(`- ${note.start - lastTime}`)
+        notes.push(`${note.note}${note.octave} ${note.end - note.start}`)
+        lastTime = note.end
+      }
+
+      const sequence = new TinyMusic.Sequence(globalAc, tempo, notes)
+      sequence.gain.gain.value = volume
+      sequence.loop = false
+      sequence.play()
+    }
+  }
+
   return <div className='wrapper context-open'>
     <div className="header">
       <h1 className="wordmark">
@@ -111,7 +129,7 @@ export default ({ onChangeVolume }) => {
           </svg>
         </button>
 
-        <button type="button" className="button button-stopped" id="button-play-stop">
+        <button type="button" className="button button-stopped" id="button-play-stop" onClick={play}>
           <svg width="48" height="48">
             <path className="icon-play" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 15l14 9-14 9z"/>
             <rect className="icon-stop" width="14" height="14" x="17" y="17" strokeWidth="2" rx="2"/>
