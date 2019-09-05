@@ -2,7 +2,7 @@ import React from 'react'
 
 const { useEffect, useRef, useState } = React
 
-export default ({ setTempo, setTimeSignature, setVolume, tempo, volume }) => {
+export default ({ setMetronomeSound, metronomeSound, setTempo, setTimeSignature, timeSignature, setVolume, tempo, volume }) => {
   const [hidden, setHidden] = useState(true)
   const popoverRef = useRef()
 
@@ -22,6 +22,9 @@ export default ({ setTempo, setTimeSignature, setVolume, tempo, volume }) => {
     setTimeSignature(target.value)
   }
 
+  const changeMetronome = ({ target }) => {
+    setMetronomeSound(target.value)
+  }
 
   useEffect(() => {
     const close = ({ target }) => {
@@ -58,6 +61,18 @@ export default ({ setTempo, setTimeSignature, setVolume, tempo, volume }) => {
 
         <hr/>
 
+        <div className="field-container">
+          <div className="field">
+            <div className="label">
+              Metronome Sound
+            </div>
+            <select className="input select" onChange={changeMetronome} value={metronomeSound}>
+              <option value="accented">Accented</option>
+              <option value="unaccented">Unaccented</option>
+            </select>
+          </div>
+        </div>
+
         <div className="two-fields">
           <div className="field m0">
             <div className="label">
@@ -70,9 +85,9 @@ export default ({ setTempo, setTimeSignature, setVolume, tempo, volume }) => {
             <div className="label">
               Time Signature
             </div>
-            <select className="input select" onChange={changeTimeSignature}>
+            <select className="input select" onChange={changeTimeSignature} value={timeSignature}>
               <option value="3/4">3/4</option>
-              <option value="4/4" selected>4/4</option>
+              <option value="4/4">4/4</option>
             </select>
           </div>
         </div>

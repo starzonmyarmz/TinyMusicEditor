@@ -26,6 +26,7 @@ export default ({ onChangeVolume }) => {
   const [recording, setRecording] = useState(false)
   const [tempo, setTempo] = useState(120)
   const [timeSignature, setTimeSignature] = useState('4/4')
+  const [metronomeSound, setMetronomeSound] = useState('accented')
   const [volume, setVolume] = useState(0.2)
   const [bubbles, setBubbles] = useState([Bubble()])
   const [selectedBubble, setSelectedBubble] = useState(bubbles[0])
@@ -50,10 +51,21 @@ export default ({ onChangeVolume }) => {
     return metronome
   }, [])
 
+  const accentedMetronome = {
+    '3/4': ['G5 q', 'D5 q', 'D5 q'],
+    '4/4': ['G5 q', 'D5 q', 'D5 q', 'D5 q']
+  }
+
+  const unaccentedMetronome = {
+    '3/4': ['D5 q', 'D5 q', 'D5 q'],
+    '4/4': ['D5 q', 'D5 q', 'D5 q', 'D5 q']
+  }
+
   useEffect(() => {
-    const notes = timeSignature === '3/4' ? ['G5 q', 'D5 q', 'D5 q'] : ['G5 q', 'D5 q', 'D5 q', 'D5 q']
+    const sound = metronomeSound === 'accented' ? accentedMetronome : unaccentedMetronome
+    const notes = sound[timeSignature]
     metronome.notes = notes.map(note => new TinyMusic.Note(note))
-  }, [timeSignature])
+  }, [timeSignature, metronomeSound])
 
   useEffect(() => {
     metronome.tempo = tempo
@@ -114,7 +126,7 @@ export default ({ onChangeVolume }) => {
           </svg>
         </button>
 
-        <Settings setTimeSignature={setTimeSignature} setVolume={setVolume} setTempo={setTempo} tempo={tempo} volume={volume} />
+        <Settings setTimeSignature={setTimeSignature} timeSignature={timeSignature} setVolume={setVolume} setTempo={setTempo} tempo={tempo} setMetronomeSound={setMetronomeSound} metronomeSound={metronomeSound} volume={volume} />
 
         <button type="button" className="button button-save">
           <svg className="icon-save" width="48" height="48" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
