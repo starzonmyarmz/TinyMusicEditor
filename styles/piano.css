@@ -10,7 +10,7 @@
   display: grid;
   grid-template-columns: repeat(calc(var(--white-keys) * 3), 1fr);
   grid-template-rows: repeat(3, 1fr);
-  height: calc(100% - 3px);
+  height: calc(100% - 4px);
   position: relative;
   width: calc(var(--key-width) * var(--white-keys));
 }
@@ -30,7 +30,7 @@
 
 .key {
   border-radius: 0 0 10px 10px;
-  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.15);
   cursor: pointer;
   outline: 0;
   z-index: 1;
@@ -47,7 +47,7 @@
 }
 
 .key-white:last-child {
-  border-right: 1px solid #eee;
+  border-right: 1px solid #ccc;
 }
 
 .key-white:hover {
