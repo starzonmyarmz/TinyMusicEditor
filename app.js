@@ -4,6 +4,7 @@ import Piano from './piano.js'
 import Settings from './settings.js'
 import Timeline from './timeline.js'
 import TinyMusic from 'tinymusic'
+import Bubble from './bubble.js'
 
 const { Fragment, useEffect, useMemo, useState } = React
 
@@ -12,6 +13,21 @@ export default ({ onChangeVolume }) => {
   const [tempo, setTempo] = useState(120)
   const [timeSignature, setTimeSignature] = useState('3/4')
   const [volume, setVolume] = useState(0.2)
+  const [bubbles, setBubbles] = useState([{}])
+  const [selectedIndex, setSelectedIndex] = useState(null)
+
+  const addBubble = () => {
+    setBubbles(bubbles.concat([{}]))
+  }
+
+  const select = (index) => {
+    setSelectedIndex(index)
+  }
+
+  const deleteBubble = (index) => {
+    setBubbles(bubbles.slice(0, index).concat(bubbles.slice(index + 1)))
+    setSelectedIndex(null)
+  }
 
   const metronome = useMemo(() => {
     const metronome = new TinyMusic.Sequence(new AudioContext(), tempo)
@@ -102,13 +118,11 @@ export default ({ onChangeVolume }) => {
       <Timeline timeSignature={timeSignature} />
 
       <div className="sequences">
-        <div className="sequence-wrapper">
-          <div className="sequence sequence-selected sequence-left-resize"></div>
-          <button type="buton" className="sequence-delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 8l-8 8m0-8l8 8"/></svg></button>
-        </div>
-
-        <button id="show">Show context</button>
+        {bubbles.map((bubble, index) => {
+          return <Bubble selected={index === selectedIndex} onSelect={() => { select(index) }} onDelete={() => { deleteBubble(index) }} />
+        })}
       </div>
+      <button type='button' onClick={addBubble}>+</button>
     </div>
 
     <Context/>
