@@ -18,6 +18,13 @@
   z-index: 10001;
 }
 
+.popover hr {
+  background: #ddd;
+  border: 0;
+  height: 1px;
+  margin: 15px -25px;
+}
+
 .popover:before {
   border-color: #fff transparent;
   border-width: 0 20px 20px 20px;

@@ -52,7 +52,7 @@ export default ({ bubble, update }) => {
           <div className="label">
             Volume
           </div>
-          <input type="range" min="0" max="1" step="0.05" value={volume} onChange={changeVolume} />
+          <input type="range" className="range" min="0" max="1" step="0.05" value={volume} onChange={changeVolume} />
         </div>
       </div>
       <div className="field-container">
@@ -86,7 +86,7 @@ export default ({ bubble, update }) => {
           <div className="label">
             Staccato
           </div>
-          <input type="range" min="0" max="1" step="0.05" value={staccato} onChange={changeStaccato} />
+          <input type="range" className="range" min="0" max="1" step="0.05" value={staccato} onChange={changeStaccato} />
         </div>
       </div>
       <div className="field-container">
@@ -94,7 +94,7 @@ export default ({ bubble, update }) => {
           <div className="label">
             Smoothing
           </div>
-          <input type="range" min="0" max="1" step="0.05" value={smoothing} onChange={changeSmoothing} />
+          <input type="range" className="range" min="0" max="1" step="0.05" value={smoothing} onChange={changeSmoothing} />
         </div>
       </div>
       <h3>Equalizer</h3>
@@ -103,7 +103,7 @@ export default ({ bubble, update }) => {
           <div className="label">
             100 Hz
           </div>
-          <input type="range" min="-10" max="10" step="1" value={bass} onChange={changeBass} />
+          <input type="range" className="range" min="-10" max="10" step="1" value={bass} onChange={changeBass} />
         </div>
       </div>
       <div className="field-container">
@@ -111,7 +111,7 @@ export default ({ bubble, update }) => {
           <div className="label">
             1000 Hz
           </div>
-          <input type="range" min="-10" max="10" step="1" value={mid} onChange={changeMid} />
+          <input type="range" className="range" min="-10" max="10" step="1" value={mid} onChange={changeMid} />
         </div>
       </div>
       <div className="field-container">
@@ -119,7 +119,7 @@ export default ({ bubble, update }) => {
           <div className="label">
             2500 Hz
           </div>
-          <input type="range" min="-10" max="10" step="1" value={treble} onChange={changeTreble} />
+          <input type="range" className="range" min="-10" max="10" step="1" value={treble} onChange={changeTreble} />
         </div>
       </div>
     </div>
