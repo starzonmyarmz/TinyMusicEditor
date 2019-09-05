@@ -72,7 +72,7 @@ export default ({ setTempo, setTimeSignature, setVolume, tempo, volume }) => {
             </div>
             <select className="input select" onChange={changeTimeSignature}>
               <option value="3/4">3/4</option>
-              <option value="4/4">4/4</option>
+              <option value="4/4" selected>4/4</option>
             </select>
           </div>
         </div>

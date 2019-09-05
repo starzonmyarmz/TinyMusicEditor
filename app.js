@@ -25,7 +25,7 @@ const Bubble = () => ({
 export default ({ onChangeVolume }) => {
   const [recording, setRecording] = useState(false)
   const [tempo, setTempo] = useState(120)
-  const [timeSignature, setTimeSignature] = useState('3/4')
+  const [timeSignature, setTimeSignature] = useState('4/4')
   const [volume, setVolume] = useState(0.2)
   const [bubbles, setBubbles] = useState([Bubble()])
   const [selectedBubble, setSelectedBubble] = useState(bubbles[0])
@@ -46,12 +46,12 @@ export default ({ onChangeVolume }) => {
 
   const metronome = useMemo(() => {
     const metronome = new TinyMusic.Sequence(new AudioContext(), tempo)
-    metronome.staccato = 0.5
+    metronome.staccato = 0.95
     return metronome
   }, [])
 
   useEffect(() => {
-    const notes = timeSignature === '3/4' ? ['C5 q', 'C4 q', 'C4 q'] : ['C5 q', 'C4 q', 'C4 q', 'C4 q']
+    const notes = timeSignature === '3/4' ? ['G5 q', 'D5 q', 'D5 q'] : ['G5 q', 'D5 q', 'D5 q', 'D5 q']
     metronome.notes = notes.map(note => new TinyMusic.Note(note))
   }, [timeSignature])
 
