@@ -39,14 +39,9 @@ export default ({ onChangeVolume }) => {
   }
 
   const updateSelected = (values) => {
-    setBubbles(bubbles.map(bubble => {
-      if (bubble === selectedBubble) {
-        const newBubble = Object.assign(bubble, values)
-        setSelectedBubble(newBubble)
-        return newBubble
-      }
-      return bubble
-    }))
+    const newBubble = Object.assign({}, selectedBubble, values)
+    setSelectedBubble(newBubble)
+    setBubbles(bubbles.map(bubble => bubble === selectedBubble ? newBubble : bubble))
   }
 
   const metronome = useMemo(() => {
