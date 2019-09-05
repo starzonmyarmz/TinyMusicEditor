@@ -6,7 +6,7 @@ import Timeline from './timeline.js'
 import TinyMusic from 'tinymusic'
 import Bubble from './bubble.js'
 
-const { Fragment, useEffect, useMemo, useState } = React
+const { useEffect, useMemo, useState } = React
 
 export default ({ onChangeVolume }) => {
   const [recording, setRecording] = useState(false)
@@ -14,19 +14,14 @@ export default ({ onChangeVolume }) => {
   const [timeSignature, setTimeSignature] = useState('3/4')
   const [volume, setVolume] = useState(0.2)
   const [bubbles, setBubbles] = useState([{}])
-  const [selectedIndex, setSelectedIndex] = useState(null)
+  const [selectedBubble, setSelectedBubble] = useState(bubbles[0])
 
   const addBubble = () => {
     setBubbles(bubbles.concat([{}]))
   }
 
-  const select = (index) => {
-    setSelectedIndex(index)
-  }
-
-  const deleteBubble = (index) => {
-    setBubbles(bubbles.slice(0, index).concat(bubbles.slice(index + 1)))
-    setSelectedIndex(null)
+  const deleteBubble = (bubble) => {
+    setBubbles(bubbles.filter(other => bubble !== other))
   }
 
   const metronome = useMemo(() => {
@@ -66,7 +61,7 @@ export default ({ onChangeVolume }) => {
     sequence.play()
   }
 
-  return <Fragment>
+  return <div className='wrapper context-open'>
     <div className="header">
       <h1 className="wordmark">
         <span>TinyMusic</span> Editor
@@ -118,14 +113,14 @@ export default ({ onChangeVolume }) => {
       <Timeline timeSignature={timeSignature} />
 
       <div className="sequences">
-        {bubbles.map((bubble, index) => {
-          return <Bubble selected={index === selectedIndex} onSelect={() => { select(index) }} onDelete={() => { deleteBubble(index) }} />
+        {bubbles.map((bubble) => {
+          return <Bubble selected={bubble === selectedBubble} onSelect={() => { setSelectedBubble(bubble) }} onDelete={() => { deleteBubble(bubble) }} />
         })}
       </div>
       <button type='button' onClick={addBubble}>+</button>
     </div>
 
-    <Context/>
+    <Context />
     <Piano onKeypress={onKeypress} />
-  </Fragment>
+  </div>
 }
