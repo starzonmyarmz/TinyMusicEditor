@@ -72,18 +72,9 @@ export default ({ onChangeVolume }) => {
     }
   }
 
-  const pianoSequence = useMemo(() => {
-    const context = new AudioContext()
-    const sequence = new TinyMusic.Sequence(context, tempo)
-    sequence.loop = false
-    return sequence
-  }, [])
-
-  const onKeypress = (note, octave) => {
-    pianoSequence.stop()
-    pianoSequence.notes = [new TinyMusic.Note(`${note}${octave} q`)]
-    pianoSequence.gain.gain.value = volume
-    pianoSequence.play()
+  const onNote = (note) => {
+    if (!recording) return
+    console.log(note)
   }
 
   return <div className='wrapper context-open'>
@@ -151,6 +142,6 @@ export default ({ onChangeVolume }) => {
     </div>
 
     <Context bubble={selectedBubble} update={updateSelected} />
-    <Piano onKeypress={onKeypress} />
+    <Piano onNote={onNote} volume={volume}/>
   </div>
 }
