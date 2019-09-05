@@ -50,21 +50,23 @@ export default ({ setTempo, setTimeSignature, setVolume, tempo, volume }) => {
         <div className="field-container">
           <div className="field">
             <div className="label">
-              Volume
+              Master Volume
             </div>
             <input type="range" className="range" min="0" max="1" step="0.05" value={volume} onChange={changeVolume} />
           </div>
         </div>
 
+        <hr/>
+
         <div className="two-fields">
-          <div className="field">
+          <div className="field m0">
             <div className="label">
               Tempo
             </div>
             <input type="number" className="input" min="40" max="200" step="1" value={tempo} onChange={changeTempo} />
           </div>
 
-          <div className="field">
+          <div className="field m0">
             <div className="label">
               Time Signature
             </div>
