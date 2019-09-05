@@ -62,7 +62,6 @@ export default ({ onChangeVolume }) => {
   }
 
   useEffect(() => {
-    if (metronomeSound === 'none') return
     let sound
 
     if (metronomeSound === 'chipAccented' || metronomeSound === 'mutedAccented') {
