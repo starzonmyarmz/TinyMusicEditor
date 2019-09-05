@@ -1,8 +1,25 @@
-.sequence-wrapper {
+.timeline {
+  fill: #bbb;
+  margin: -2px 0 20px -3px;
+}
+
+
+
+.marker {
+  background: rgb(var(--tertiary-color));
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 1px;
+}
+
+
+
+.bubble-wrapper {
   position: relative;
 }
 
-.sequence {
+.bubble {
   background: #fff;
   border-color: transparent;
   border-style: solid;
@@ -13,7 +30,7 @@
   transition: all 0.3s
 }
 
-.sequence-delete {
+.bubble-delete {
   background: #fff;
   border: 0;
   border-radius: 12px;
@@ -31,22 +48,22 @@
   width: 24px;
 }
 
-.sequence-selected {
+.bubble-selected {
   border-color: rgb(var(--primary-color));
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 }
 
-.sequence-left-resize {
+.bubble-left-trim {
   border-left-width: 8px;
   cursor: ew-resize;
 }
 
-.sequence-right-resize {
+.bubble-right-trim {
   border-right-width: 8px;
   cursor: ew-resize;
 }
 
-.sequence-wrapper:hover .sequence-delete {
+.bubble-wrapper:hover .bubble-delete {
   opacity: 1;
   visibility: visible;
 }

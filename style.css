@@ -6,10 +6,10 @@
 @import './styles/forms.css';
 @import './styles/popovers.css';
 
+@import './styles/bubbles.css';
 @import './styles/context.css';
 @import './styles/header.css';
 @import './styles/piano.css';
-@import './styles/sequences.css';
 
 
 
@@ -92,11 +92,4 @@
 
 .button-save:active .icon-save-details {
   stroke: #fff;
-}
-
-
-
-.timeline {
-  fill: #bbb;
-  margin: -4px 0 20px 0;
 }

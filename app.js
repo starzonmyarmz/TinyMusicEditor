@@ -112,7 +112,7 @@ export default ({ onChangeVolume }) => {
     <div className="main">
       <Timeline timeSignature={timeSignature} />
 
-      <div className="sequences">
+      <div className="bubbles">
         {bubbles.map((bubble) => {
           return <Bubble selected={bubble === selectedBubble} onSelect={() => { setSelectedBubble(bubble) }} onDelete={() => { deleteBubble(bubble) }} />
         })}
