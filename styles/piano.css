@@ -1,33 +1,57 @@
 .piano {
-  background: #333;
+  background: #fff;
   border-radius: 20px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
   margin: 20px;
-  padding: 20px;
+  padding: 20px 20px 17px;
 }
 
 .keys {
   display: grid;
   grid-template-columns: repeat(calc(var(--white-keys) * 3), 1fr);
   grid-template-rows: repeat(3, 1fr);
-  height: 100%;
+  height: calc(100% - 3px);
+  position: relative;
   width: calc(var(--key-width) * var(--white-keys));
 }
 
+.keys:after {
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+  display: block;
+  height: 30px;
+  content: "";
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2;
+}
+
 .key {
-  background: #fff;
-  border: 0;
-  border-left: 1px solid #333;
   border-radius: 0 0 10px 10px;
-  color: #aaa;
-  grid-column: auto / span 3;
-  grid-row: 1 / span 3;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
   outline: 0;
   z-index: 1;
 }
 
-.key:active {
+.key-white {
+  background: #fff;
+  border: 0;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  color: #aaa;
+  grid-column: auto / span 3;
+  grid-row: 1 / span 3;
+}
 
+.key-white:last-child {
+  border-right: 1px solid #eee;
+}
+
+.key-white:hover {
+  background: #eee;
 }
 
 .key-black {
@@ -36,4 +60,8 @@
   grid-column: auto / span 2;
   grid-row: 1 / span 2;
   z-index: 2;
+}
+
+.key-black:hover {
+  background: #222;
 }
