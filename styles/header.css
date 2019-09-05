@@ -11,6 +11,7 @@
 .wordmark sup {
   font-size: 0.55em;
   font-weight: 400;
+  left: 5px;
   letter-spacing: 0;
   position: relative;
   top: -2px;
