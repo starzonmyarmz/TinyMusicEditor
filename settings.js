@@ -52,7 +52,7 @@ export default ({ setTempo, setTimeSignature, setVolume, tempo, volume }) => {
             <div className="label">
               Volume
             </div>
-            <input type="range" min="0" max="1" step="0.05" value={volume} onChange={changeVolume} />
+            <input type="range" className="range" min="0" max="1" step="0.05" value={volume} onChange={changeVolume} />
           </div>
         </div>
 
