@@ -10,6 +10,8 @@ const { useEffect, useMemo, useState } = React
 
 let nextId = 1
 
+const push = (arr, val) => arr.concat([val])
+
 const Bubble = () => ({
   bass: 0,
   id: nextId++,
@@ -20,6 +22,7 @@ const Bubble = () => ({
   treble: 0,
   volume: 1,
   wave: 'sine',
+  notes: []
 })
 
 export default ({ onChangeVolume }) => {
@@ -31,7 +34,7 @@ export default ({ onChangeVolume }) => {
   const [selectedBubble, setSelectedBubble] = useState(bubbles[0])
 
   const addBubble = () => {
-    setBubbles(bubbles.concat([Bubble()]))
+    setBubbles(push(bubbles, Bubble()))
   }
 
   const deleteBubble = (bubble) => {
@@ -72,18 +75,11 @@ export default ({ onChangeVolume }) => {
     }
   }
 
-  const pianoSequence = useMemo(() => {
-    const context = new AudioContext()
-    const sequence = new TinyMusic.Sequence(context, tempo)
-    sequence.loop = false
-    return sequence
-  }, [])
-
-  const onKeypress = (note, octave) => {
-    pianoSequence.stop()
-    pianoSequence.notes = [new TinyMusic.Note(`${note}${octave} q`)]
-    pianoSequence.gain.gain.value = volume
-    pianoSequence.play()
+  const onNote = (note) => {
+    if (!recording) return
+    //selectedBubble.notes.push(note)
+    //setBubbles(bubbles.slice())
+    console.log(note)
   }
 
   return <div className='wrapper context-open'>
@@ -151,6 +147,6 @@ export default ({ onChangeVolume }) => {
     </div>
 
     <Context bubble={selectedBubble} update={updateSelected} />
-    <Piano onKeypress={onKeypress} />
+    <Piano onNote={onNote} volume={volume}/>
   </div>
 }

@@ -1,7 +1,10 @@
 import React from 'react'
 import classname from 'classname'
+import TinyMusic from 'tinymusic'
 
-export default ({ onKeypress }) => {
+const { useMemo, useRef } = React
+
+export default ({ onNote, volume }) => {
   const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', ]
 
   const offsets = {
@@ -19,6 +22,15 @@ export default ({ onKeypress }) => {
     'B': 18,
   }
 
+  const pianoSequence = useMemo(() => {
+    const context = new AudioContext()
+    const sequence = new TinyMusic.Sequence(context, 120)
+    sequence.loop = false
+    return sequence
+  }, [])
+
+  const noteRef = useRef(null)
+
   const keys = new Array(85).fill().map((_, index) => {
     const octave = (index / notes.length) | 0
     const note = notes[index % notes.length]
@@ -29,17 +41,47 @@ export default ({ onKeypress }) => {
       'key-white': note.length === 1
     })
 
+    const startNote = (note, octave) => {
+      pianoSequence.stop()
+      pianoSequence.notes = [new TinyMusic.Note(`${note}${octave} q`)]
+      pianoSequence.gain.gain.value = volume
+      pianoSequence.play()
+
+      if (noteRef.current !== null) {
+        endNote()
+      }
+
+      noteRef.current = {
+        note,
+        octave,
+        start: pianoSequence.ac.currentTime,
+        end: null,
+      }
+    }
+
+    const endNote = () => {
+      if (noteRef.current === null) return
+      noteRef.current.end = pianoSequence.ac.currentTime
+      onNote(noteRef.current)
+      noteRef.current = null
+    }
+
     const onMouseDown = () => {
-      onKeypress(note, octave)
+      startNote(note, octave)
     }
 
     const onMouseEnter = ({ buttons }) => {
       if ((buttons & 1) === 1) {
-        onKeypress(note, octave)
+        startNote(note, octave)
       }
     }
 
-    return <button key={index} type="button" className={className} style={{ gridColumnStart }} onMouseDown={onMouseDown} onMouseEnter={onMouseEnter}></button>
+    return (
+      <button key={index} type="button" className={className} style={{ gridColumnStart }}
+        onMouseDown={onMouseDown} onMouseEnter={onMouseEnter}
+        onMouseLeave={endNote} onMouseUp={endNote}>
+      </button>
+    )
   })
 
   return (
