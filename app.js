@@ -20,6 +20,7 @@ const Bubble = () => ({
   treble: 0,
   volume: 1,
   wave: 'sine',
+  notes: []
 })
 
 export default ({ onChangeVolume }) => {
@@ -30,6 +31,8 @@ export default ({ onChangeVolume }) => {
   const [volume, setVolume] = useState(0.2)
   const [bubbles, setBubbles] = useState([Bubble()])
   const [selectedBubble, setSelectedBubble] = useState(bubbles[0])
+
+  const globalAc = useMemo(() => new AudioContext(), [])
 
   const addBubble = () => {
     setBubbles(bubbles.concat([Bubble()]))
@@ -46,7 +49,7 @@ export default ({ onChangeVolume }) => {
   }
 
   const metronome = useMemo(() => {
-    const metronome = new TinyMusic.Sequence(new AudioContext(), tempo)
+    const metronome = new TinyMusic.Sequence(globalAc, tempo)
     metronome.staccato = 0.95
     return metronome
   }, [])
@@ -86,7 +89,7 @@ export default ({ onChangeVolume }) => {
 
   const onNote = (note) => {
     if (!recording) return
-    console.log(note)
+    updateSelected({notes: selectedBubble.notes.concat([note])})
   }
 
   return <div className='wrapper context-open'>
@@ -154,6 +157,6 @@ export default ({ onChangeVolume }) => {
     </div>
 
     <Context bubble={selectedBubble} update={updateSelected} />
-    <Piano onNote={onNote} volume={volume}/>
+    <Piano onNote={onNote} volume={volume} ac={globalAc} />
   </div>
 }

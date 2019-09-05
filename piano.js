@@ -4,7 +4,7 @@ import TinyMusic from 'tinymusic'
 
 const { useMemo, useRef } = React
 
-export default ({ onNote, volume }) => {
+export default ({ onNote, volume, ac }) => {
   const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', ]
 
   const offsets = {
@@ -23,8 +23,7 @@ export default ({ onNote, volume }) => {
   }
 
   const sequence = useMemo(() => {
-    const context = new AudioContext()
-    const sequence = new TinyMusic.Sequence(context, 120)
+    const sequence = new TinyMusic.Sequence(ac, 120)
     sequence.loop = false
     return sequence
   }, [])
