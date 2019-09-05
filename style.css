@@ -81,11 +81,11 @@
 }
 
 .button-looping {
-  stroke: rgb(var(--scondary-color));
+  stroke: rgb(var(--secondary-color));
 }
 
 .button-looping:hover {
-  background: rgba(var(--scondary-color), 0.15);
+  background: rgba(var(--secondary-color), 0.15);
 }
 
 

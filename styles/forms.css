@@ -32,42 +32,92 @@
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
 }
 
+
+
 .select {
   background: #fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='8'><path fill='none' stroke='%23888' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M1 1l6 6 6-6' /></svg>") calc(100% - 10px) 50% no-repeat;
   padding: 10px 34px 10px 10px;
 }
 
 
-.range-input {
-  height: 20px;
-  position: relative;
+
+.range {
+  -webkit-appearance: none;
+  background: transparent;
+  margin: 10px 0;
+  outline: none;
+  width: 100%;
 }
 
-.range-background {
+.range::-webkit-slider-runnable-track {
+  animate: 0.2s;
   background: rgba(0, 0, 0, 0.15);
-  border-radius: 2px;
+  border-radius: 4px;
+  border: 0;
+  cursor: pointer;
   height: 4px;
-  margin: 8px 0;
-  position: absolute;
-  width: 100%
+  width: 100%;
 }
 
-.range-fill {
-  background: rgb(var(--scondary-color));
-  border-radius: 2px;
-  height: 4px;
-  margin: 8px 0;
-  position: absolute;
-  width: 50%;
+.range:focus::-webkit-slider-runnable-track {
+  background: rgb(var(--secondary-color));
 }
 
-.range-button {
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
   background: #fff;
   border: 0;
-  border-radius: 10px;
+  border-radius: 100%;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
   height: 20px;
-  margin-left: -10px;
-  position: absolute;
   width: 20px;
+  margin-top: -8px;
+}
+
+.range::-moz-range-track {
+  animate: 0.2s;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  border: 0;
+  cursor: pointer;
+  height: 4px;
+  width: 100%;
+}
+
+.range::-moz-range-progress {
+  background: rgb(var(--secondary-color));
+  height: 4px;
+}
+
+.range::-moz-range-thumb {
+  background: #fff;
+  border: 0;
+  border-radius: 100%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  margin-top: -8px;
+}
+
+.range::-ms-track {
+  animate: 0.2s;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  border: 0;
+  cursor: pointer;
+  height: 4px;
+  width: 100%;
+}
+
+.range::-ms-thumb {
+  background: #fff;
+  border: 0;
+  border-radius: 100%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  margin-top: -4px;
 }
