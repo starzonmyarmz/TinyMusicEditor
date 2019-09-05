@@ -112,7 +112,7 @@ export default ({ onChangeVolume }) => {
           </svg>
         </button>
 
-        <button type="button" className={recording ? 'button button-recording' : 'button button-record'} onClick={toggleRecord}>
+        <button type="button" className={recording ? 'button button-record button-recording' : 'button button-record'} onClick={toggleRecord}>
           <svg width="48" height="48">
             <circle className="icon-record" cx="24" cy="24" r="8" fillRule="evenodd" strokeWidth="2"/>
           </svg>
