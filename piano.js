@@ -29,7 +29,17 @@ export default ({ onKeypress }) => {
       'key-white': note.length === 1
     })
 
-    return <button key={index} type="button" className={className} style={{ gridColumnStart }} onClick={() => onKeypress(note, octave)}></button>
+    const onMouseDown = () => {
+      onKeypress(note, octave)
+    }
+
+    const onMouseEnter = ({ buttons }) => {
+      if ((buttons & 1) === 1) {
+        onKeypress(note, octave)
+      }
+    }
+
+    return <button key={index} type="button" className={className} style={{ gridColumnStart }} onMouseDown={onMouseDown} onMouseEnter={onMouseEnter}></button>
   })
 
   return (
