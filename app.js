@@ -87,7 +87,7 @@ export default ({ onChangeVolume }) => {
           </svg>
         </button>
 
-        <Settings />
+        <Settings setTimeSignature={setTimeSignature} setVolume={setVolume} setTempo={setTempo} tempo={tempo} volume={volume} />
 
         <button type="button" className="button button-save">
           <svg className="icon-save" width="48" height="48" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
@@ -111,7 +111,7 @@ export default ({ onChangeVolume }) => {
       </div>
     </div>
 
-    <Context setTimeSignature={setTimeSignature} setVolume={setVolume} setTempo={setTempo} tempo={tempo} volume={volume} />
+    <Context/>
     <Piano onKeypress={onKeypress} />
   </Fragment>
 }
