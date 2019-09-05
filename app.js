@@ -4,20 +4,28 @@ import Piano from './piano.js'
 import Settings from './settings.js'
 import Timeline from './timeline.js'
 import TinyMusic from 'tinymusic'
-import Bubble from './bubble.js'
+import BubbleView from './bubble.js'
 
 const { useEffect, useMemo, useState } = React
+
+let nextId = 1
+
+class Bubble {
+  constructor () {
+    this.id = nextId++
+  }
+}
 
 export default ({ onChangeVolume }) => {
   const [recording, setRecording] = useState(false)
   const [tempo, setTempo] = useState(120)
   const [timeSignature, setTimeSignature] = useState('3/4')
   const [volume, setVolume] = useState(0.2)
-  const [bubbles, setBubbles] = useState([{}])
+  const [bubbles, setBubbles] = useState([new Bubble()])
   const [selectedBubble, setSelectedBubble] = useState(bubbles[0])
 
   const addBubble = () => {
-    setBubbles(bubbles.concat([{}]))
+    setBubbles(bubbles.concat([new Bubble()]))
   }
 
   const deleteBubble = (bubble) => {
@@ -119,7 +127,7 @@ export default ({ onChangeVolume }) => {
 
       <div className="bubbles">
         {bubbles.map((bubble) => {
-          return <Bubble selected={bubble === selectedBubble} onSelect={() => { setSelectedBubble(bubble) }} onDelete={() => { deleteBubble(bubble) }} />
+          return <BubbleView key={bubble.id} selected={bubble === selectedBubble} onSelect={() => { setSelectedBubble(bubble) }} onDelete={() => { deleteBubble(bubble) }} />
         })}
       </div>
       <button type='button' onClick={addBubble}>+</button>
