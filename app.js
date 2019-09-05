@@ -147,7 +147,12 @@ export default ({ onChangeVolume }) => {
           return <BubbleView key={bubble.id} selected={bubble === selectedBubble} onSelect={() => { setSelectedBubble(bubble) }} onDelete={() => { deleteBubble(bubble) }} />
         })}
       </div>
-      <button type='button' onClick={addBubble}>+</button>
+
+      <button type='button' className="button" onClick={addBubble}>
+        <svg className="icon-add" width="48" height="48" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
+          <path d="M24 17v14m-7-7h14"/>
+        </svg>
+      </button>
     </div>
 
     <Context bubble={selectedBubble} update={updateSelected} />
