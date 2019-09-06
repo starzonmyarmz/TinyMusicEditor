@@ -18,6 +18,8 @@ export default ({ onChangeVolume }) => {
   const [volume, setVolume] = useState(0.2)
   const [bubbles, setBubbles] = useState([Bubble()])
   const [selectedBubble, setSelectedBubble] = useState(bubbles[0])
+  const [t, setT] = useState(null)
+  const [offset, setOffset] = useState(0)
 
   const globalAc = useMemo(() => new AudioContext(), [])
 
@@ -87,6 +89,31 @@ export default ({ onChangeVolume }) => {
       metronome.gain.gain.value = volume
     }
   }, [volume, metronomeSound])
+
+  useEffect(() => {
+    if (!(playing || recording)) {
+      setT(null)
+      return
+    }
+
+    setOffset(globalAc.currentTime)
+    setT(0)
+
+    let keepGoing = true
+
+    requestAnimationFrame(function loop() {
+      const seconds = globalAc.currentTime - offset
+      const distance = seconds % 16
+      const quarterNoteLength = 60 / tempo
+      const rounded = distance - distance % quarterNoteLength
+
+      setT(rounded)
+
+      if (keepGoing) requestAnimationFrame(loop)
+    })
+
+    return () => { keepGoing = false }
+  }, [globalAc, playing, recording, tempo])
 
   const toggleRecord = () => {
     setRecording(!recording)
@@ -176,7 +203,7 @@ export default ({ onChangeVolume }) => {
       <div className="bubbles">
         {bubbles.map((bubble) => {
           return (
-            <BubbleView key={bubble.id} ac={globalAc}
+            <BubbleView key={bubble.id} ac={globalAc} t={t}
               tempo={tempo} timeSignature={timeSignature}
               selected={bubble === selectedBubble} bubble={bubble}
               onSelect={() => { setSelectedBubble(bubble) }} onDelete={() => { deleteBubble(bubble) }} />

@@ -67,7 +67,7 @@ export const Bubble = (ac) => ({
   }
 })
 
-export default ({ onDelete, onSelect, selected, ac, bubble, tempo, timeSignature }) => {
+export default ({ onDelete, onSelect, selected, ac, bubble, tempo, timeSignature, t }) => {
   const deleteButton = () => {
     if (selected) return null
 
@@ -80,27 +80,9 @@ export default ({ onDelete, onSelect, selected, ac, bubble, tempo, timeSignature
     )
   }
 
-  const [t, setT] = useState(0)
-
   const beatsPerMeasure = timeSignature === '3/4' ? 3 : 4
   const quarterNoteLength = 60 / tempo
   const loopLength = MAGIC_NUMBER_OF_MEASURES * beatsPerMeasure * quarterNoteLength
-
-  useEffect(() => {
-    let keepGoing = true
-
-    requestAnimationFrame(function loop() {
-      const seconds = ac.currentTime - bubble.startTime
-      const distance = seconds % loopLength
-      const rounded = distance - distance % quarterNoteLength
-
-      setT(rounded)
-
-      if (keepGoing) requestAnimationFrame(loop)
-    })
-
-    return () => { keepGoing = false }
-  }, [ac, bubble])
 
   const className = classname({
     'bubble': true,
@@ -123,7 +105,7 @@ export default ({ onDelete, onSelect, selected, ac, bubble, tempo, timeSignature
     <div className="bubble-wrapper">
       <div className={className} onClick={onSelect}>
         <svg viewBox={`${vx} ${vy} ${vw} ${vh}`} width="100%">
-          <rect x={map(t, 0, loopLength, 0, vw)} y={0} width={1} height={vh} fill="rgba(0, 0, 0, 0.1)"></rect>
+          {t === null ? null : <rect x={map(t, 0, loopLength, 0, vw)} y={0} width={1} height={vh} fill="rgba(0, 0, 0, 0.1)"></rect>}
           {notes.map(({ note, index }) => {
             return <rect x={map(index, 0, loopLength, 0, vw)} y={0} width={1} height={1} fill="black"></rect>
           })}
