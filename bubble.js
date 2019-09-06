@@ -87,7 +87,7 @@ export default ({ onDelete, onSelect, selected, ac, bubble, tempo, timeSignature
   const className = classname({
     'bubble': true,
     'bubble-selected': selected,
-    'bubble-left-trim': true
+    'bubble-left-trim': false
   })
 
   const vx = 0
