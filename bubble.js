@@ -59,7 +59,7 @@ export const Bubble = (ac) => ({
     this.sequence.notes = this.normalizedNotes
     this.sequence.gain.gain.value = this.volume
     this.sequence.loop = true
-    this.sequence.play(when)
+    this.sequence.play()
   },
 
   stop() {
@@ -113,11 +113,20 @@ export default ({ onDelete, onSelect, selected, ac, bubble, tempo, timeSignature
   const vw = (timeSignature === '3/4' ? 3 : 4) * MAGIC_NUMBER_OF_MEASURES
   const vh = vw / 10
 
+  const notes = []
+  bubble.normalizedNotes.forEach((note, index) => {
+    if (note.frequency === 0) return
+    notes.push({ note, index })
+  })
+
   return (
     <div className="bubble-wrapper">
       <div className={className} onClick={onSelect}>
         <svg viewBox={`${vx} ${vy} ${vw} ${vh}`} width="100%">
           <rect x={map(t, 0, loopLength, 0, vw)} y={0} width={1} height={vh} fill="rgba(0, 0, 0, 0.1)"></rect>
+          {notes.map(({ note, index }) => {
+            return <rect x={map(index, 0, loopLength, 0, vw)} y={0} width={1} height={1} fill="black"></rect>
+          })}
         </svg>
       </div>
       {deleteButton()}
