@@ -56,6 +56,7 @@ export const Bubble = (ac) => ({
     this.sequence.notes = this.normalizedNotes
     this.sequence.gain.gain.value = this.volume
     this.sequence.loop = true
+    this.sequence.waveType = this.wave
     this.sequence.play()
   },
 

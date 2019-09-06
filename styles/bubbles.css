@@ -17,6 +17,7 @@
 
 .bubble-wrapper {
   position: relative;
+  width: 960px;
 }
 
 .bubble {
