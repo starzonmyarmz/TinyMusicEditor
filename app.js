@@ -79,14 +79,14 @@ export default ({ onChangeVolume }) => {
   const onNote = (note) => {
     if (!recording) return
     const notes = selectedBubble.notes.concat([note])
-    updateSelected({notes})
-    console.log(notes)
+    const normalizedNotes = selectedBubble.normalizeNotes(tempo, timeSignature)
+    updateSelected({notes, normalizedNotes})
   }
 
   const play = () => {
     if (recording) { toggleRecord() }
     const when = globalAc.currentTime
-    bubbles.forEach(bubble => bubble.play(tempo, timeSignature, when))
+    bubbles.forEach(bubble => bubble.play(when))
     setBubbles(bubbles.map(bubble => Object.assign({}, bubble, {startTime: when})))
     setPlaying(true)
   }

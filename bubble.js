@@ -20,6 +20,7 @@ export const Bubble = (ac) => ({
   volume: 0.3,
   wave: 'sine',
   notes: [],
+  normalizedNotes: [],
   startTime: null,
   sequence: new TinyMusic.Sequence(ac),
 
@@ -54,8 +55,8 @@ export const Bubble = (ac) => ({
     return notes.map(note => new TinyMusic.Note(note))
   },
 
-  play(tempo, timeSignature, when) {
-    this.sequence.notes = this.normalizeNotes(tempo, timeSignature)
+  play(when) {
+    this.sequence.notes = this.normalizedNotes
     this.sequence.gain.gain.value = this.volume
     this.sequence.loop = true
     this.sequence.play(when)
