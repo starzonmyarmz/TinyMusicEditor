@@ -67,8 +67,11 @@ export default ({ setMetronomeSound, metronomeSound, setTempo, setTimeSignature,
               Metronome Sound
             </div>
             <select className="input select" onChange={changeMetronome} value={metronomeSound}>
-              <option value="accented">Accented</option>
-              <option value="unaccented">Unaccented</option>
+              <option value="chipAccented">Chip — Accented</option>
+              <option value="chipUnaccented">Chip — Unaccented</option>
+              <option value="mutedAccented">Muted — Accented</option>
+              <option value="mutedUnaccented">Muted — Unaccented</option>
+              <option value="none">None</option>
             </select>
           </div>
         </div>
