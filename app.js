@@ -128,7 +128,7 @@ export default ({ onChangeVolume }) => {
   const onNote = (note) => {
     if (!recording) return
     const notes = selectedBubble.notes.concat([note])
-    const normalizedNotes = selectedBubble.normalizeNotes(tempo, timeSignature)
+    const normalizedNotes = selectedBubble.normalizeNotes(notes, tempo, timeSignature)
     updateSelected({notes, normalizedNotes})
   }
 

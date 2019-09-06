@@ -24,11 +24,11 @@ export const Bubble = (ac) => ({
   startTime: null,
   sequence: new TinyMusic.Sequence(ac),
 
-  normalizeNotes(tempo, timeSignature) {
+  normalizeNotes(notes, tempo, timeSignature) {
     const beatsPerMeasure = timeSignature === '3/4' ? 3 : 4
     const quarterNoteLength = 60 / tempo
     const loopLength = MAGIC_NUMBER_OF_MEASURES * beatsPerMeasure * quarterNoteLength
-    const notes = new Array(MAGIC_NUMBER_OF_MEASURES * beatsPerMeasure).fill('- q')
+    const beats = new Array(MAGIC_NUMBER_OF_MEASURES * beatsPerMeasure).fill('- q')
 
     const seconds2duration = (seconds) => {
       const quarterNotesPerSecond = tempo / 60
@@ -37,22 +37,19 @@ export const Bubble = (ac) => ({
       return duration
     }
 
-    for (const note of this.notes) {
+    for (const note of notes) {
       let start = seconds2duration(note.start - this.startTime)
-      start = Math.round(start) % notes.length
+      start = Math.round(start) % beats.length
 
-      let duration = seconds2duration(note.end - note.start)
-      duration = Math.round(duration)
+      let end = seconds2duration(note.end - this.startTime)
+      end = Math.round(end) % beats.length
 
-      // even if we round down to 0, we still want to play the note
-      if (duration === 0) duration = 1
-
-      while (duration--) {
-        notes[start++] = `${note.note}${note.octave} q`
+      for (let i = start; i <= end; i++) {
+        beats[i] = `${note.note}${note.octave} q`
       }
     }
 
-    return notes.map(note => new TinyMusic.Note(note))
+    return beats.map(note => new TinyMusic.Note(note))
   },
 
   play(when) {
@@ -107,7 +104,7 @@ export default ({ onDelete, onSelect, selected, ac, bubble, tempo, timeSignature
         <svg viewBox={`${vx} ${vy} ${vw} ${vh}`} width="100%">
           {t === null ? null : <rect x={map(t, 0, loopLength, 0, vw)} y={0} width={1} height={vh} fill="rgba(0, 0, 0, 0.1)"></rect>}
           {notes.map(({ note, index }) => {
-            return <rect key={index} x={map(index, 0, loopLength, 0, vw)} y={0} width={1} height={1} fill="black"></rect>
+            return <rect key={index} x={map(index * quarterNoteLength, 0, loopLength, 0, vw)} y={0} width={1} height={1} fill="black"></rect>
           })}
         </svg>
       </div>
