@@ -5,27 +5,13 @@ import Settings from './settings.js'
 import Timeline from './timeline.js'
 import TinyMusic from 'tinymusic'
 import BubbleView from './bubble.js'
+import {Bubble} from './bubble.js'
 
 const { useEffect, useMemo, useState } = React
 
-let nextId = 1
-
-const Bubble = () => ({
-  bass: 0,
-  id: nextId++,
-  fade: 'none',
-  mid: 0,
-  smoothing: 0,
-  staccato: 0,
-  treble: 0,
-  volume: 1,
-  wave: 'sine',
-  notes: [],
-  startTime: null
-})
-
 export default ({ onChangeVolume }) => {
   const [recording, setRecording] = useState(false)
+  const [playing, setPlaying] = useState(false)
   const [tempo, setTempo] = useState(120)
   const [timeSignature, setTimeSignature] = useState('4/4')
   const [metronomeSound, setMetronomeSound] = useState('accented')
@@ -98,21 +84,16 @@ export default ({ onChangeVolume }) => {
   }
 
   const play = () => {
-    for (const bubble of bubbles) {
-      const lastTime = bubble.startTime
-      const notes = []
+    if (recording) { toggleRecord() }
+    const when = globalAc.currentTime
+    bubbles.forEach(bubble => bubble.play(tempo, timeSignature, when))
+    setBubbles(bubbles.map(bubble => Object.assign({}, bubble, {startTime: when})))
+    setPlaying(true)
+  }
 
-      for (const note of bubble.notes) {
-        notes.push(`- ${note.start - lastTime}`)
-        notes.push(`${note.note}${note.octave} ${note.end - note.start}`)
-        lastTime = note.end
-      }
-
-      const sequence = new TinyMusic.Sequence(globalAc, tempo, notes)
-      sequence.gain.gain.value = volume
-      sequence.loop = false
-      sequence.play()
-    }
+  const stop = () => {
+    bubbles.forEach(bubble => bubble.stop())
+    setPlaying(false)
   }
 
   return <div className='wrapper context-open'>
@@ -129,10 +110,13 @@ export default ({ onChangeVolume }) => {
           </svg>
         </button>
 
-        <button type="button" className="button button-stopped" id="button-play-stop" onClick={play}>
+        <button type="button" className="button button-stopped" id="button-play-stop" onClick={playing ? stop : play}>
           <svg width="48" height="48">
-            <path className="icon-play" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 15l14 9-14 9z"/>
-            <rect className="icon-stop" width="14" height="14" x="17" y="17" strokeWidth="2" rx="2"/>
+            {
+              playing
+                ? <rect className="icon-stop" width="14" height="14" x="17" y="17" strokeWidth="2" rx="2"/>
+                : <path className="icon-play" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 15l14 9-14 9z"/>
+            }
           </svg>
         </button>
 

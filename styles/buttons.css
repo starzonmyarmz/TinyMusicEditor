@@ -31,12 +31,6 @@
   background: rgba(var(--primary-gray), 0.2);
 }
 
-.button-playing .icon-play,
-.button-stopped .icon-stop {
-  display: none;
-}
-
-
 
 .button-record {
   stroke: rgb(var(--tertiary-color));
