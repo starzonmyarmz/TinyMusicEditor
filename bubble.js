@@ -24,8 +24,10 @@ export const Bubble = (ac) => ({
   sequence: new TinyMusic.Sequence(ac),
 
   normalizeNotes(tempo, timeSignature) {
-    let lastTime = this.startTime
-    const notes = []
+    const beatsPerMeasure = timeSignature === '3/4' ? 3 : 4
+    const quarterNoteLength = 60 / tempo
+    const loopLength = MAGIC_NUMBER_OF_MEASURES * beatsPerMeasure * quarterNoteLength
+    const notes = new Array(MAGIC_NUMBER_OF_MEASURES * beatsPerMeasure).fill('- q')
 
     const seconds2duration = (seconds) => {
       const quarterNotesPerSecond = tempo / 60
@@ -35,16 +37,19 @@ export const Bubble = (ac) => ({
     }
 
     for (const note of this.notes) {
-      notes.push(`- ${seconds2duration(note.start - lastTime)}`)
-      notes.push(`${note.note}${note.octave} ${seconds2duration(note.end - note.start)}`)
-      lastTime = note.end
-    }
+      let start = seconds2duration(note.start - this.startTime)
+      start = Math.round(start) % notes.length
 
-    // Add a rest to fill out the end of the loop
-    const beatsPerMeasure = timeSignature === '3/4' ? 3 : 4
-    const quarterNoteLength = 60 / tempo
-    const loopLength = MAGIC_NUMBER_OF_MEASURES * beatsPerMeasure * quarterNoteLength
-    notes.push(`- ${seconds2duration(loopLength - lastTime)}`)
+      let duration = seconds2duration(note.end - note.start)
+      duration = Math.round(duration)
+
+      // even if we round down to 0, we still want to play the note
+      if (duration === 0) duration = 1
+
+      while (duration--) {
+        notes[start++] = `${note.note}${note.octave} q`
+      }
+    }
 
     return notes.map(note => new TinyMusic.Note(note))
   },
