@@ -107,7 +107,7 @@ export default ({ onDelete, onSelect, selected, ac, bubble, tempo, timeSignature
             const x = map(index * quarterNoteLength, 0, loopLength, 0, vw)
             const y = map(note.frequency, TinyMusic.Note.getFrequency('C0'), TinyMusic.Note.getFrequency('C7'), vh, 0)
 
-            return <rect key={index} x={x} y={y - 2 / 85} width={1} height={4 / 85} fill="black"></rect>
+            return <rect key={index} x={x} y={y - 2 / 85} width={1} height={4 / 85} className="bubble-note"></rect>
           })}
         </svg>
       </div>

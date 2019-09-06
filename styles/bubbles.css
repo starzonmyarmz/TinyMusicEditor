@@ -29,6 +29,10 @@
   transition: all 0.3s
 }
 
+.bubble-note {
+  fill: rgb(var(--primary-color))
+}
+
 .bubble-delete {
   background: #fff;
   border: 0;
