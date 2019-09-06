@@ -104,7 +104,10 @@ export default ({ onDelete, onSelect, selected, ac, bubble, tempo, timeSignature
         <svg viewBox={`${vx} ${vy} ${vw} ${vh}`} width="100%">
           {t === null ? null : <rect x={map(t, 0, loopLength, 0, vw)} y={0} width={1} height={vh} fill="rgba(0, 0, 0, 0.1)"></rect>}
           {notes.map(({ note, index }) => {
-            return <rect key={index} x={map(index * quarterNoteLength, 0, loopLength, 0, vw)} y={0} width={1} height={1} fill="black"></rect>
+            const x = map(index * quarterNoteLength, 0, loopLength, 0, vw)
+            const y = map(note.frequency, TinyMusic.Note.getFrequency('C0'), TinyMusic.Note.getFrequency('C7'), vh, 0)
+
+            return <rect key={index} x={x} y={y} width={1} height={1 / 85} fill="black"></rect>
           })}
         </svg>
       </div>
