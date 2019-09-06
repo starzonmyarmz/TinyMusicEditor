@@ -73,7 +73,7 @@ export default ({ onNote, volume, ac }) => {
 
     const keyup = event => {
       const note = keyboardKeys[event.key]
-      if (note) {
+      if (note && pressedNote === note) {
         endNote()
         pressedNote = null
       }
@@ -86,7 +86,7 @@ export default ({ onNote, volume, ac }) => {
       window.removeEventListener('keydown', keydown)
       window.removeEventListener('keyup', keyup)
     }
-  }, [])
+  }, [onNote])
 
 
   const keys = new Array(85).fill().map((_, index) => {
