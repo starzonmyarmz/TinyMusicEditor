@@ -107,7 +107,7 @@ export default ({ onDelete, onSelect, selected, ac, bubble, tempo, timeSignature
         <svg viewBox={`${vx} ${vy} ${vw} ${vh}`} width="100%">
           {t === null ? null : <rect x={map(t, 0, loopLength, 0, vw)} y={0} width={1} height={vh} fill="rgba(0, 0, 0, 0.1)"></rect>}
           {notes.map(({ note, index }) => {
-            return <rect x={map(index, 0, loopLength, 0, vw)} y={0} width={1} height={1} fill="black"></rect>
+            return <rect key={index} x={map(index, 0, loopLength, 0, vw)} y={0} width={1} height={1} fill="black"></rect>
           })}
         </svg>
       </div>
