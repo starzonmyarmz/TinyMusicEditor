@@ -19,7 +19,6 @@ export default ({ onChangeVolume }) => {
   const [bubbles, setBubbles] = useState([Bubble()])
   const [selectedBubble, setSelectedBubble] = useState(bubbles[0])
   const [t, setT] = useState(null)
-  const [offset, setOffset] = useState(0)
 
   const globalAc = useMemo(() => new AudioContext(), [])
 
@@ -96,7 +95,7 @@ export default ({ onChangeVolume }) => {
       return
     }
 
-    setOffset(globalAc.currentTime)
+    const offset = globalAc.currentTime
     setT(0)
 
     let keepGoing = true
