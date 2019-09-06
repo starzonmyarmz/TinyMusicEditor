@@ -2,7 +2,7 @@ import React from 'react'
 import classname from 'classname'
 import TinyMusic from 'tinymusic'
 
-const { useMemo, useRef } = React
+const { useMemo, useRef, useEffect } = React
 
 export default ({ onNote, volume, ac }) => {
   const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', ]
@@ -30,6 +30,65 @@ export default ({ onNote, volume, ac }) => {
 
   const noteRef = useRef(null)
 
+  const startNote = (note, octave) => {
+    sequence.notes = [new TinyMusic.Note(`${note}${octave} 500`)]
+    sequence.gain.gain.value = volume
+    sequence.play()
+
+    if (noteRef.current !== null) {
+      endNote()
+    }
+
+    noteRef.current = {
+      note,
+      octave,
+      start: sequence.ac.currentTime,
+      end: null,
+    }
+  }
+
+  const endNote = () => {
+    if (noteRef.current === null) return
+    sequence.stop()
+    noteRef.current.end = sequence.ac.currentTime
+    onNote(noteRef.current)
+    noteRef.current = null
+  }
+
+  const keyboardKeys = {
+    z: 'C', s: 'C#', x: 'D', d: 'D#', c: 'E',
+    v: 'F', g: 'F#', b: 'G', h: 'G#', n: 'A', j: 'A#', m: 'B',
+  }
+
+  useEffect(() => {
+    let pressedNote = null
+
+    const keydown = event => {
+      const note = keyboardKeys[event.key]
+      if (note && pressedNote !== note) {
+        startNote(note, 4)
+        pressedNote = note
+      }
+    }
+
+    const keyup = event => {
+      const note = keyboardKeys[event.key]
+      if (note) {
+        endNote()
+        pressedNote = null
+      }
+    }
+
+    window.addEventListener('keydown', keydown)
+    window.addEventListener('keyup', keyup)
+
+    return () => {
+      window.removeEventListener('keydown', keydown)
+      window.removeEventListener('keyup', keyup)
+    }
+  }, [])
+
+
   const keys = new Array(85).fill().map((_, index) => {
     const octave = (index / notes.length) | 0
     const note = notes[index % notes.length]
@@ -39,31 +98,6 @@ export default ({ onNote, volume, ac }) => {
       'key-black': note.length > 1,
       'key-white': note.length === 1
     })
-
-    const startNote = (note, octave) => {
-      sequence.notes = [new TinyMusic.Note(`${note}${octave} 500`)]
-      sequence.gain.gain.value = volume
-      sequence.play()
-
-      if (noteRef.current !== null) {
-        endNote()
-      }
-
-      noteRef.current = {
-        note,
-        octave,
-        start: sequence.ac.currentTime,
-        end: null,
-      }
-    }
-
-    const endNote = () => {
-      if (noteRef.current === null) return
-      sequence.stop()
-      noteRef.current.end = sequence.ac.currentTime
-      onNote(noteRef.current)
-      noteRef.current = null
-    }
 
     const onMouseDown = () => {
       startNote(note, octave)
