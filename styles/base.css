@@ -25,3 +25,7 @@ button {
 h3, h4 {
   margin: 0 0 15px;
 }
+
+svg {
+  vertical-align: middle;
+}
