@@ -100,8 +100,8 @@ export default ({ onDelete, onSelect, selected, ac, bubble, tempo, timeSignature
 
   return (
     <div className="bubble-wrapper">
-      <div className={className} onClick={onSelect}>
-        <svg viewBox={`${vx} ${vy} ${vw} ${vh}`} width="100%">
+      <div className={className} onClick={onSelect} >
+        <svg className="bubble-notes" viewBox={`${vx} ${vy} ${vw} ${vh}`} preserveAspectRatio="none">
           {t === null ? null : <rect x={map(t, 0, loopLength, 0, vw)} y={0} width={1} height={vh} fill="rgba(0, 0, 0, 0.1)"></rect>}
           {notes.map(({ note, index }) => {
             const x = map(index * quarterNoteLength, 0, loopLength, 0, vw)
