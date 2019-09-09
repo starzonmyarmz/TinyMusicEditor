@@ -21,10 +21,9 @@ export const Bubble = (ac) => ({
   wave: 'sine',
   notes: [],
   normalizedNotes: [],
-  startTime: null,
   sequence: new TinyMusic.Sequence(ac),
 
-  normalizeNotes(notes, tempo, timeSignature) {
+  normalizeNotes(notes, tempo, timeSignature, startTime) {
     const beatsPerMeasure = timeSignature === '3/4' ? 3 : 4
     const quarterNoteLength = 60 / tempo
     const loopLength = MAGIC_NUMBER_OF_MEASURES * beatsPerMeasure * quarterNoteLength
@@ -38,10 +37,10 @@ export const Bubble = (ac) => ({
     }
 
     for (const note of notes) {
-      let start = seconds2duration(note.start - this.startTime)
+      let start = seconds2duration(note.start - startTime)
       start = Math.round(start) % beats.length
 
-      let end = seconds2duration(note.end - this.startTime)
+      let end = seconds2duration(note.end - startTime)
       end = Math.round(end) % beats.length
 
       for (let i = start; i <= end; i++) {
@@ -52,7 +51,7 @@ export const Bubble = (ac) => ({
     return beats.map(note => new TinyMusic.Note(note))
   },
 
-  play(when) {
+  play() {
     this.sequence.notes = this.normalizedNotes
     this.sequence.gain.gain.value = this.volume
     this.sequence.loop = true

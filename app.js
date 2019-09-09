@@ -7,7 +7,7 @@ import TinyMusic from 'tinymusic'
 import BubbleView from './bubble.js'
 import {Bubble} from './bubble.js'
 
-const { useEffect, useMemo, useState } = React
+const { useEffect, useMemo, useRef, useState } = React
 
 export default ({ onChangeVolume }) => {
   const [recording, setRecording] = useState(false)
@@ -19,6 +19,7 @@ export default ({ onChangeVolume }) => {
   const [bubbles, setBubbles] = useState([Bubble()])
   const [selectedBubble, setSelectedBubble] = useState(bubbles[0])
   const [t, setT] = useState(null)
+  const offsetRef = useRef(0)
 
   const globalAc = useMemo(() => new AudioContext(), [])
 
@@ -95,13 +96,13 @@ export default ({ onChangeVolume }) => {
       return
     }
 
-    const offset = globalAc.currentTime
+    offsetRef.current = globalAc.currentTime
     setT(0)
 
     let keepGoing = true
 
     requestAnimationFrame(function loop() {
-      const seconds = globalAc.currentTime - offset
+      const seconds = globalAc.currentTime - offsetRef.current
       const distance = seconds % 16
       const quarterNoteLength = 60 / tempo
       const rounded = distance - distance % quarterNoteLength
@@ -128,15 +129,13 @@ export default ({ onChangeVolume }) => {
   const onNote = (note) => {
     if (!recording) return
     const notes = selectedBubble.notes.concat([note])
-    const normalizedNotes = selectedBubble.normalizeNotes(notes, tempo, timeSignature)
+    const normalizedNotes = selectedBubble.normalizeNotes(notes, tempo, timeSignature, offsetRef.current)
     updateSelected({notes, normalizedNotes})
   }
 
   const play = () => {
     if (recording) { toggleRecord() }
-    const when = globalAc.currentTime
-    bubbles.forEach(bubble => bubble.play(when))
-    setBubbles(bubbles.map(bubble => Object.assign({}, bubble, {startTime: when})))
+    bubbles.forEach(bubble => bubble.play())
     setPlaying(true)
   }
 
