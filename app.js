@@ -98,6 +98,12 @@ export default ({ onChangeVolume }) => {
   }, [volume])
 
   useEffect(() => {
+    for (const bubble of bubbles) {
+      bubble.sequence.loop = looping
+    }
+  }, [looping])
+
+  useEffect(() => {
     if (!(playing || recording)) {
       setT(null)
       return
