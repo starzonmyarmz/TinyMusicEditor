@@ -91,6 +91,12 @@ export default ({ onChangeVolume }) => {
   }, [volume, metronomeSound])
 
   useEffect(() => {
+    for (const bubble of bubbles) {
+      bubble.sequence.gain.gain.value = volume
+    }
+  }, [volume])
+
+  useEffect(() => {
     if (!(playing || recording)) {
       setT(null)
       return
