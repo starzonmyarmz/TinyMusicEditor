@@ -18,6 +18,7 @@ export default ({ onChangeVolume }) => {
   const [volume, setVolume] = useState(0.2)
   const [bubbles, setBubbles] = useState([Bubble()])
   const [selectedBubble, setSelectedBubble] = useState(bubbles[0])
+  const [looping, setLooping] = useState(false)
   const [t, setT] = useState(null)
   const offsetRef = useRef(0)
 
@@ -132,6 +133,10 @@ export default ({ onChangeVolume }) => {
     }
   }
 
+  const toggleLooping = () => {
+    setLooping(!looping)
+  }
+
   const onNote = (note) => {
     if (!recording) return
     const notes = selectedBubble.notes.concat([note])
@@ -182,7 +187,7 @@ export default ({ onChangeVolume }) => {
       </div>
 
       <div className="actions-secondary">
-        <button type="button" className="button button-loop">
+        <button type="button" className={looping ? "button button-loop button-looping" : "button button-loop"} onClick={toggleLooping}>
           <svg className="icon-loop" width="48" height="48" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
             <path d="M29 14l4 4-4 4"/>
             <path d="M15 23v-1a4 4 0 0 1 4-4h14M19 34l-4-4 4-4"/>
